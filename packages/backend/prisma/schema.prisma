@@ -32,7 +32,6 @@ model Todo {
   description String?
   completed   Boolean  @default(false)
   public      Boolean  @default(true)
-  authorId    Int
   author      User     @relation(fields: [userId], references: [id])
   createAt    DateTime @default(now())
   updatedAt   DateTime @updatedAt
