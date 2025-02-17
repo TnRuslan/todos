@@ -18,7 +18,9 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 					defaultValue={defaultValue}
 					{...props}
 				/>
-				<p className={errorMessageStyle}>{errorMessage}</p>
+				{errorMessage && (
+					<p className={errorMessageStyle}>{errorMessage}</p>
+				)}
 			</div>
 		);
 	},

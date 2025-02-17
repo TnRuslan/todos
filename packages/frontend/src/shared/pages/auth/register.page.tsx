@@ -1,12 +1,13 @@
-import { Button } from '@blueprintjs/core';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import Form from '~shared/components/form/form.component';
 import Input from '~shared/components/input/input.component';
 import { IRegisterData } from '~shared/interfaces/user.interface';
 import { ROUTER_KEYS } from '~shared/keys';
 import { registerSchema } from '~shared/schemas/auth.schema';
+import { linkStyles } from '~shared/styles/common-styles';
 import { useAuthStore } from '~store/auth.store';
 
 const RegisterPage = (): React.ReactNode => {
@@ -29,9 +30,12 @@ const RegisterPage = (): React.ReactNode => {
 
 	return (
 		<div>
-			<h2>Register Page</h2>
-
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<Form<IRegisterData>
+				title="Register"
+				onSubmit={onSubmit}
+				handleSubmit={handleSubmit}
+				submitBtnTitle="Sign up"
+			>
 				<Input
 					label="Username"
 					{...register('username', { required: true })}
@@ -49,10 +53,10 @@ const RegisterPage = (): React.ReactNode => {
 					type="password"
 					errorMessage={errors?.password?.message}
 				/>
-
-				<Button type="submit">Register</Button>
-			</form>
-			<Link to={ROUTER_KEYS.LOGIN}>Sign in</Link>
+				<Link to={ROUTER_KEYS.LOGIN} className={linkStyles}>
+					Sign in
+				</Link>
+			</Form>
 		</div>
 	);
 };

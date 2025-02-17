@@ -10,7 +10,7 @@ export const createTodoSchema = yup.object({
 	public: yup.boolean().required(),
 });
 
-export const upadteTodoSchema = yup.object().shape({
+export const updateTodoSchema = yup.object().shape({
 	title: yup.string().trim().max(maxTitleLength).required(),
 	description: yup.string().trim().max(maxDescriptionLength).optional(),
 	completed: yup.boolean(),

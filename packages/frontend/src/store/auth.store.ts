@@ -1,14 +1,15 @@
 import { AxiosError } from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import { create } from 'zustand';
-import { immer } from 'zustand/middleware/immer';
+import { persist } from 'zustand/middleware';
 import { ERROR_MESSAGES } from '~shared/constants/errorMessages';
 import {
 	ChangePasswordData,
 	IRegisterData,
 	IUser,
 	LoginData,
-	fogetPassword,
+	ForgetPassword,
+	ResetPassword,
 } from '~shared/interfaces/user.interface';
 import { STORAGE_KEYS } from '~shared/keys';
 import AuthService from '~shared/services/auth.service';
@@ -24,15 +25,18 @@ interface IAuthStore {
 	verifyEmail: (verifyToken: string) => Promise<void>;
 	getCurrentUser: () => Promise<void>;
 	changePassword: (passwords: ChangePasswordData) => Promise<void>;
-	fogetPassword: (fogetPassword: fogetPassword) => Promise<void>;
-	resetPassword: (resetToken: string, newPassword: string) => Promise<void>;
+	forgetPassword: (forgetPassword: ForgetPassword) => Promise<void>;
+	resetPassword: (
+		resetToken: string,
+		newPassword: ResetPassword,
+	) => Promise<void>;
 }
 
 const authService = new AuthService();
 
 export const useAuthStore = create<IAuthStore>()(
-	immer((set) => {
-		return {
+	persist(
+		(set) => ({
 			user: null,
 			loading: false,
 			error: null,
@@ -52,7 +56,9 @@ export const useAuthStore = create<IAuthStore>()(
 						loading: null,
 					});
 				} catch (error) {
-					enqueueSnackbar(ERROR_MESSAGES.WRONG, { variant: 'error' });
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 					set({
 						error: error.message,
 						loading: false,
@@ -73,7 +79,9 @@ export const useAuthStore = create<IAuthStore>()(
 						error: null,
 					});
 				} catch (error) {
-					enqueueSnackbar(ERROR_MESSAGES.WRONG, { variant: 'error' });
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 					set({
 						loading: false,
 					});
@@ -100,8 +108,14 @@ export const useAuthStore = create<IAuthStore>()(
 						loading: false,
 						error: null,
 					});
+
+					enqueueSnackbar('Email Verified', {
+						variant: 'success',
+					});
 				} catch (error) {
-					enqueueSnackbar(ERROR_MESSAGES.WRONG, { variant: 'error' });
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 
 					set({
 						error: error.message,
@@ -124,7 +138,9 @@ export const useAuthStore = create<IAuthStore>()(
 						error: null,
 					});
 				} catch (error) {
-					enqueueSnackbar(ERROR_MESSAGES.WRONG, { variant: 'error' });
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 
 					set({
 						loading: false,
@@ -146,7 +162,9 @@ export const useAuthStore = create<IAuthStore>()(
 						error: null,
 					});
 				} catch (error) {
-					enqueueSnackbar(ERROR_MESSAGES.WRONG, { variant: 'error' });
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 
 					set({
 						loading: false,
@@ -155,20 +173,20 @@ export const useAuthStore = create<IAuthStore>()(
 				}
 			},
 
-			fogetPassword: async (
-				fogetPasswordData: fogetPassword,
-			): Promise<void> => {
+			forgetPassword: async (forgetPasswordData): Promise<void> => {
 				set({ loading: true });
 
 				try {
-					await authService.fogetPAssword(fogetPasswordData);
+					await authService.forgetPassword(forgetPasswordData);
 
 					set({
 						loading: false,
 						error: null,
 					});
 				} catch (error) {
-					enqueueSnackbar(ERROR_MESSAGES.WRONG, { variant: 'error' });
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 
 					set({
 						loading: false,
@@ -192,7 +210,9 @@ export const useAuthStore = create<IAuthStore>()(
 						error: null,
 					});
 				} catch (error) {
-					enqueueSnackbar(ERROR_MESSAGES.WRONG, { variant: 'error' });
+					enqueueSnackbar(ERROR_MESSAGES.WRONG, {
+						variant: 'error',
+					});
 
 					set({
 						loading: false,
@@ -200,6 +220,10 @@ export const useAuthStore = create<IAuthStore>()(
 					});
 				}
 			},
-		};
-	}),
+		}),
+		{
+			name: STORAGE_KEYS.TOKEN,
+			partialize: (state) => ({ token: state.token, user: state.user }),
+		},
+	),
 );

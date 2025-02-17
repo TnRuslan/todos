@@ -1,16 +1,19 @@
-import { Button, Card } from '@blueprintjs/core';
+import { Card } from '@blueprintjs/core';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '~shared/components/input/input.component';
 import { LoginData } from '~shared/interfaces/user.interface';
 import { ROUTER_KEYS } from '~shared/keys';
 import { loginSchema } from '~shared/schemas/auth.schema';
 import { useAuthStore } from '~store/auth.store';
 import { formWrapper } from './auth.styles';
+import Form from '~shared/components/form/form.component';
+import { linkStyles } from '~shared/styles/common-styles';
 
 const LoginPage = (): React.ReactNode => {
+	const navigate = useNavigate();
 	const { login } = useAuthStore();
 	const {
 		handleSubmit,
@@ -24,34 +27,41 @@ const LoginPage = (): React.ReactNode => {
 	const onSubmit = (data: LoginData): void => {
 		login(data);
 		reset();
+		navigate(ROUTER_KEYS.DASHBOARD);
 	};
 
 	return (
 		<div>
-			<Card className={formWrapper}>
-				<h2>Login</h2>
-
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<Input
-						type="email"
-						label="Email"
-						{...register('email')}
-						errorMessage={errors?.email?.message}
-					/>
-					<Input
-						label="Password"
-						{...register('password')}
-						type="password"
-						errorMessage={errors?.password?.message}
-					/>
-
-					<Button type="submit">Login</Button>
-				</form>
+			<Form<LoginData>
+				title="Login"
+				onSubmit={onSubmit}
+				handleSubmit={handleSubmit}
+				submitBtnTitle="Login"
+			>
+				<Input
+					type="email"
+					label="Email"
+					{...register('email')}
+					errorMessage={errors?.email?.message}
+				/>
+				<Input
+					label="Password"
+					{...register('password')}
+					type="password"
+					errorMessage={errors?.password?.message}
+				/>
 				<Card className={formWrapper}>
-					<Link to={ROUTER_KEYS.REGISTER}>Sign up</Link>
-					<Link to={ROUTER_KEYS.FOGET_PASSWORD}>Foget Password</Link>
+					<Link to={ROUTER_KEYS.REGISTER} className={linkStyles}>
+						Sign up
+					</Link>
+					<Link
+						to={ROUTER_KEYS.FORGET_PASSWORD}
+						className={linkStyles}
+					>
+						Forget Password
+					</Link>
 				</Card>
-			</Card>
+			</Form>
 		</div>
 	);
 };

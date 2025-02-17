@@ -1,22 +1,32 @@
 import { AxiosResponse } from 'axios';
-import HttpServices from './http';
+
+import HttpServices from './http.service';
 import {
 	BaseResponse,
 	ICreateTodo,
 	ITodo,
+	TodoSearchParams,
 } from '~shared/interfaces/todo.interface';
+import { makeTodoQueryStr } from '~/helpers/makeTodoQueryStr';
 
 class TodoService extends HttpServices {
 	constructor() {
 		super();
 	}
 
-	async getAllTodos(): Promise<AxiosResponse<BaseResponse<ITodo[]>>> {
-		return this.get({ url: 'all' }, true);
+	async getAllTodos(
+		searchParams: TodoSearchParams,
+	): Promise<AxiosResponse<BaseResponse<ITodo[]>>> {
+		return this.get(
+			{
+				url: `all${makeTodoQueryStr(searchParams)}`,
+			},
+			true,
+		);
 	}
 
 	async getTodoById(id: string): Promise<AxiosResponse<BaseResponse<ITodo>>> {
-		return this.get({ url: id }, false);
+		return this.get({ url: id }, true);
 	}
 
 	async createTodo(
@@ -29,11 +39,11 @@ class TodoService extends HttpServices {
 		id: string,
 		data: Partial<ICreateTodo>,
 	): Promise<AxiosResponse<BaseResponse<ITodo>>> {
-		return this.putch({ url: id, data }, false);
+		return this.patch({ url: id, data }, true);
 	}
 
 	async deleteTodo(id: string): Promise<AxiosResponse<BaseResponse<ITodo>>> {
-		return this.delete({ url: id }, false);
+		return this.delete({ url: id }, true);
 	}
 }
 

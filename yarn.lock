@@ -3109,10 +3109,10 @@ react-final-form@^6.5.9:
   dependencies:
     "@babel/runtime" "^7.15.4"
 
-react-hook-form@^7.52.1:
-  version "7.52.1"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.52.1.tgz"
-  integrity sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==
+react-hook-form@^7.53.0:
+  version "7.54.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.54.2.tgz#8c26ed54c71628dff57ccd3c074b1dd377cfb211"
+  integrity sha512-eHpAUgUjWbZocoQYUHposymRb4ZP6d0uwUnooL2uOybA9/3tPUvoAKqEWK1WaSiTxxOfTpffNZP7QwlnM3/gEg==
 
 react-is@^16.13.1:
   version "16.13.1"
@@ -3512,10 +3512,10 @@ svg-parser@^2.0.4:
   resolved "https://registry.npmjs.org/svg-parser/-/svg-parser-2.0.4.tgz"
   integrity sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==
 
-swiper@^11.1.9:
-  version "11.1.9"
-  resolved "https://registry.npmjs.org/swiper/-/swiper-11.1.9.tgz"
-  integrity sha512-rflu8zvfGa3x1v/aeSufk4zRJffhOQowyvtJlp46sUBnOqAuk1Rdv5Ldj0AWWBV595iZ+ZMk7VB35ZRtRUomtA==
+swiper@^11.1.14:
+  version "11.2.4"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.2.4.tgz#4d1b55e07f909957e0406bdbff81b850b9dc8aeb"
+  integrity sha512-DTtglrsFfMYytid+oNy4QI3t2N2+XhhwSYbnyOhlwBmvY8Bkoj3ombK1/b80w8vDpQ+Lqlnbm+0737+i32MrcA==
 
 synckit@^0.8.6:
   version "0.8.8"
