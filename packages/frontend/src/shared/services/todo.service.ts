@@ -22,7 +22,7 @@ class TodoService extends HttpServices {
 	async createTodo(
 		todo: ICreateTodo,
 	): Promise<AxiosResponse<BaseResponse<ITodo>>> {
-		return this.post({ url: '', data: todo }, false);
+		return this.post({ url: '', data: todo }, true);
 	}
 
 	async updateTodo(

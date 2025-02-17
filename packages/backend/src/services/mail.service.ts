@@ -1,38 +1,39 @@
-import forgotPasswordEmail from '@/email/forgotPasswordEmail';
-import verificationEmail from '@/email/verivicationEmail';
-import sgMail from '@sendgrid/mail';
+import forgotPasswordEmail from '@/email/forgotPassword.email';
+import verificationEmail from '@/email/verification.email';
+import * as postmark from 'postmark';
 import 'dotenv/config';
 
-const { FRONTEND_URL, SENDGRID_API_KEY_NEW, SENDER_EMAIL } = process.env;
-
-sgMail.setApiKey(SENDGRID_API_KEY_NEW!);
+const { FRONTEND_URL, SENDER_EMAIL, POSTMARK_API_KEY } = process.env;
+const client = new postmark.ServerClient(POSTMARK_API_KEY!);
 
 export default class MailService {
 	async sendVerificationEmail(
 		to: string,
-		vericationCode: string,
+		verificationCode: string,
 	): Promise<void> {
 		const email = {
-			to,
-			from: SENDER_EMAIL!,
-			subject: 'Verify your email',
-			html: verificationEmail(vericationCode, FRONTEND_URL!),
+			To: to,
+			From: SENDER_EMAIL!,
+			Subject: 'Verify your email',
+			HtmlBody: verificationEmail(verificationCode, FRONTEND_URL!),
+			MessageStream: 'broadcast',
 		};
 
-		await sgMail.send(email);
+		await client.sendEmail(email);
 	}
 
-	async sendFogotPassworEmail(
+	async sendForgotPasswordEmail(
 		to: string,
-		vericationCode: string,
+		verificationCode: string,
 	): Promise<void> {
 		const email = {
-			to,
-			from: SENDER_EMAIL!,
-			subject: 'Reset password',
-			html: forgotPasswordEmail(vericationCode, FRONTEND_URL!),
+			To: to,
+			From: SENDER_EMAIL!,
+			Subject: 'Reset password',
+			HtmlBody: forgotPasswordEmail(verificationCode, FRONTEND_URL!),
+			MessageStream: 'broadcast',
 		};
 
-		await sgMail.send(email);
+		await client.sendEmail(email);
 	}
 }

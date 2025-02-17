@@ -4,11 +4,11 @@ import { tryCatchWrapper } from '@/middleware/tryCatch.middleware';
 import { validateBody } from '@/middleware/validation.middleware';
 import {
 	changePasswordSchema,
-	fogetPassworSchema,
+	forgetPasswordSchema,
 	loginSchema,
 	registerSchema,
 	resetPAsswordSchema,
-} from '@/utils/validationSchemas/user.shema';
+} from '@/utils/validation/user.schema';
 import { Router } from 'express';
 
 const router: Router = Router();
@@ -46,8 +46,8 @@ router.patch(
 
 router.post(
 	'/foget-password',
-	validateBody(fogetPassworSchema),
-	tryCatchWrapper(authController.fogetPassword.bind(authController)),
+	validateBody(forgetPasswordSchema),
+	tryCatchWrapper(authController.forgetPassword.bind(authController)),
 );
 
 router.post(

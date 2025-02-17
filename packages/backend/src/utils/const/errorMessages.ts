@@ -3,13 +3,13 @@ export const errorMessages = {
 	401: 'Unauthorized',
 	403: 'Forbidden',
 	404: 'Not Found',
-	500: 'Internar Server Error',
+	500: 'Internal Server Error',
 	503: 'Service Unavailable',
 };
 
 export const authMessages = {
 	exist: 'User already exist',
-	doesNotExist: 'User doens`t exist',
+	doesNotExist: 'User doesn`t exist',
 	notFound: 'User not found',
 	wrongPasswordOrEmail: 'Wrong Password or Email',
 	emailVerified: 'Email verified!',

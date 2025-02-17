@@ -2,10 +2,10 @@ import { Router } from 'express';
 
 import todoController from '../../controllers/todo.controller';
 import { validateBody } from '@/middleware/validation.middleware';
-import { todoSchema } from '@/utils/validationSchemas/todo.schema';
 import { tryCatchWrapper } from '@/middleware/tryCatch.middleware';
 import { isExist } from '@/middleware/isExist.middleware';
 import { jwtAuth } from '@/middleware/auth.middleware';
+import { todoSchema } from '@/utils/validation/todo.schema';
 
 const todosRouter: Router = Router();
 

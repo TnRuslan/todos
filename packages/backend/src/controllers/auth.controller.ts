@@ -1,12 +1,12 @@
-import AuthSevice from '@/services/auth.service';
 import { Response, Request } from 'express';
 import { StatusCodes } from '@/utils/const/statusCode';
-import createToken from '@/helpers/create-token';
 import { User } from '@prisma/client';
 import { authMessages } from '@/utils/const/errorMessages';
+import createToken from '@/helpers/create-token';
+import AuthService from '@/services/auth.service';
 
 export class AuthController {
-	constructor(private authService: AuthSevice) {}
+	constructor(private authService: AuthService) {}
 
 	async register(req: Request, res: Response): Promise<void> {
 		const newUser = await this.authService.register(req.body);
@@ -54,8 +54,8 @@ export class AuthController {
 		});
 	}
 
-	async fogetPassword(req: Request, res: Response): Promise<void> {
-		await this.authService.fogetPassword(req.body.email);
+	async forgetPassword(req: Request, res: Response): Promise<void> {
+		await this.authService.forgetPassword(req.body.email);
 
 		res.status(StatusCodes.OK).json({
 			message: authMessages.emailSent,
@@ -63,10 +63,10 @@ export class AuthController {
 	}
 
 	async resetPassword(req: Request, res: Response): Promise<void> {
-		const ressetId = req.params.id;
+		const resetId = req.params.id;
 
 		const user = await this.authService.resetPassword(
-			ressetId,
+			resetId,
 			req.body.newPassword,
 		);
 
@@ -76,6 +76,6 @@ export class AuthController {
 	}
 }
 
-const authController = new AuthController(new AuthSevice());
+const authController = new AuthController(new AuthService());
 
 export default authController;

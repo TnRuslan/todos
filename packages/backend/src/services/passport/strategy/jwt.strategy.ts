@@ -6,9 +6,9 @@ import {
 import { PrismaClient, User } from '@prisma/client';
 import 'dotenv/config';
 import { PassportStatic } from 'passport';
-import { DoneFncType } from './local.strategy';
 import { authMessages, errorMessages } from '@/utils/const/errorMessages';
 import { StatusCodes } from '@/utils/const/statusCode';
+import { DoneFncType } from './local.strategy';
 import { HttpError } from '@/helpers/httpError';
 
 const prisma = new PrismaClient();
