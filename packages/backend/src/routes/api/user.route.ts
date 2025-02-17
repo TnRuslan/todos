@@ -45,7 +45,7 @@ router.patch(
 );
 
 router.post(
-	'/foget-password',
+	'/forget-password',
 	validateBody(forgetPasswordSchema),
 	tryCatchWrapper(authController.forgetPassword.bind(authController)),
 );

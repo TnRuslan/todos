@@ -1,9 +1,9 @@
-import { Card } from '@blueprintjs/core';
 import React, { useEffect } from 'react';
+import { wrapperStyles } from './verifyEmail.styles';
 import { useParams } from 'react-router-dom';
 import { useAuthStore } from '~store/auth.store';
 
-const VerifyEmailPage = (): React.ReactNode => {
+const VerifyEmail = (): React.ReactNode => {
 	const { id } = useParams();
 
 	const { verifyEmail } = useAuthStore();
@@ -13,10 +13,10 @@ const VerifyEmailPage = (): React.ReactNode => {
 	}, [id]);
 
 	return (
-		<Card>
+		<div className={wrapperStyles}>
 			<h2>Email Verified</h2>
-		</Card>
+		</div>
 	);
 };
 
-export default VerifyEmailPage;
+export default VerifyEmail;

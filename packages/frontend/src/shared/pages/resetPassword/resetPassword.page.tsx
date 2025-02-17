@@ -1,14 +1,14 @@
-import { Button, Card } from '@blueprintjs/core';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import Form from '~shared/components/form/form.component';
 import Input from '~shared/components/input/input.component';
 import { ROUTER_KEYS } from '~shared/keys';
 import { resetPasswordSchema } from '~shared/schemas/user.schema';
 import { useAuthStore } from '~store/auth.store';
 
-interface INewPassword {
+interface IFormData {
 	newPassword: string;
 }
 
@@ -24,26 +24,27 @@ const ResetPasswordPage = (): React.ReactNode => {
 		formState: { errors },
 	} = useForm({ resolver: yupResolver(resetPasswordSchema) });
 
-	const onSubmit = (data: INewPassword): void => {
-		resetPassword(id, data.newPassword);
+	const onSubmit = (data: IFormData): void => {
+		resetPassword(id, data);
 		reset();
 		navigate(ROUTER_KEYS.LOGIN);
 	};
 
 	return (
-		<Card>
-			<h2>Reset your password</h2>
-
-			<form onSubmit={handleSubmit(onSubmit)}>
+		<div>
+			<Form<IFormData>
+				onSubmit={onSubmit}
+				handleSubmit={handleSubmit}
+				title="Create a new Password"
+			>
 				<Input
 					type="password"
 					label="New Password"
 					{...register('newPassword')}
 					errorMessage={errors?.newPassword?.message}
 				/>
-				<Button type="submit">Submit</Button>
-			</form>
-		</Card>
+			</Form>
+		</div>
 	);
 };
 

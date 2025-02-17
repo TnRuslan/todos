@@ -43,14 +43,26 @@
 			"~/*": [
 				"src/*"
 			],
+			"~constants/*": [
+				"src/shared/constants/*"
+			],
+			"~layout/*": [
+				"src/shared/layout/*"
+			],
 			"~schemas/*": [
 				"src/shared/schemas/*"
 			],
-			"~utils/*": [
-				"src/shared/utils/*"
+			"~pages/*": [
+				"src/shared/pages/*"
 			],
-			"~constants/*": [
-				"src/shared/constants/*"
+			"~interfaces/*": [
+				"src/shared/interfaces/*"
+			],
+			"~helpers/*": [
+				"src/helpers/*"
+			],
+			"~hooks/*": [
+				"src/shared/hooks/*"
 			]
 		}
 	},

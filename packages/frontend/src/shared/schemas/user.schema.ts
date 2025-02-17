@@ -27,6 +27,6 @@ export const resetPasswordSchema = yup.object({
 		.required(),
 });
 
-export const fogetPasswordSchema = yup.object({
+export const forgetPasswordSchema = yup.object({
 	email: yup.string().trim().email().required(),
 });

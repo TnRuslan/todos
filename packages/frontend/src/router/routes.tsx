@@ -1,93 +1,100 @@
 import * as React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import App from '~modules/app/app.module';
-import { ROUTER_KEYS, STORAGE_KEYS } from '~shared/keys';
+import { Navigate } from 'react-router-dom';
+
+import { ROUTER_KEYS } from '~shared/keys';
 import LoginPage from '~shared/pages/auth/login.page';
 import RegisterPage from '~shared/pages/auth/register.page';
-import CreateTodo from '~shared/pages/createTodo/CreateTodo';
-import EditTodoPage from '~shared/pages/editTodo/editTodoPage';
-import FogetPasswordPage from '~shared/pages/fogetPassword/fogetPassword.page';
+import DashboardPage from '~shared/pages/dashboard/dashboard.page';
+import EditTodoPage from '~shared/pages/edit-todo/editTodo.page';
+import ForgetPasswordPage from '~shared/pages/forgetPassword/forgetPassword.page';
 import ResetPasswordPage from '~shared/pages/resetPassword/resetPassword.page';
-import UserProfile from '~shared/pages/user/userProgile';
-import VerifyEmailPage from '~shared/pages/verifyEmail/verifyEmail.page';
-
-const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
+import UserProfile from '~shared/pages/user/profile.page';
+import VerifyEmail from '~shared/pages/verifyEmail/verifyEmail.page';
+import { useAuthStore } from '~store/auth.store';
 
 export const PublicRoute = ({
-	redirectTo = ROUTER_KEYS.HOME,
+	redirectTo = ROUTER_KEYS.DASHBOARD,
+	children,
 }: {
 	redirectTo?: string;
+	children: React.ReactNode;
 }): React.ReactNode => {
-	return token ? <Navigate to={redirectTo} /> : <Outlet />;
+	const { token } = useAuthStore();
+	return token ? <Navigate to={redirectTo} /> : children;
 };
 
 export const PrivateRoute = ({
 	redirectTo = ROUTER_KEYS.LOGIN,
+	children,
 }: {
 	redirectTo?: string;
+	children: React.ReactNode;
 }): React.ReactNode => {
-	return token ? <Outlet /> : <Navigate to={redirectTo} />;
+	const { token } = useAuthStore();
+	return token ? children : <Navigate to={redirectTo} />;
 };
 
-export const routes = [
-	{
-		title: 'Home Page',
-		path: ROUTER_KEYS.HOME,
-		element: <App />,
-		isPrivet: <PrivateRoute />,
-	},
-	{
-		title: 'Dashboard',
-		path: ROUTER_KEYS.DASHBOARD,
-		element: <div>Dashboard Page</div>,
-		isPrivet: <PrivateRoute />,
-	},
+const publicRoutes = [
 	{
 		title: 'Login',
 		path: ROUTER_KEYS.LOGIN,
 		element: <LoginPage />,
-		isPrivet: <PublicRoute />,
 	},
 	{
 		title: 'Register',
 		path: ROUTER_KEYS.REGISTER,
 		element: <RegisterPage />,
-		isPrivet: <PublicRoute />,
 	},
 	{
-		title: 'Add todo',
-		path: ROUTER_KEYS.CREATETOD,
-		element: <CreateTodo />,
-		isPrivet: <PrivateRoute />,
-	},
-	{
-		title: 'Edit todo',
-		path: ROUTER_KEYS.EDITTODO,
-		element: <EditTodoPage />,
-		isPrivet: <PrivateRoute />,
-	},
-	{
-		title: 'User Profile',
-		path: ROUTER_KEYS.USER_PROFILE,
-		element: <UserProfile />,
-		isPrivet: <PrivateRoute />,
-	},
-	{
-		title: 'Verify User Email',
-		path: ROUTER_KEYS.VERIFY_EMAIL,
-		element: <VerifyEmailPage />,
-		isPrivet: <PrivateRoute />,
+		title: 'Forget Password',
+		path: ROUTER_KEYS.FORGET_PASSWORD,
+		element: <ForgetPasswordPage />,
 	},
 	{
 		title: 'Reset Password',
 		path: ROUTER_KEYS.RESET_PASSWORD,
 		element: <ResetPasswordPage />,
-		isPrivet: <PublicRoute />,
 	},
 	{
-		title: 'Foget Password',
-		path: ROUTER_KEYS.FOGET_PASSWORD,
-		element: <FogetPasswordPage />,
-		isPrivet: <PublicRoute />,
+		title: 'Verify User Email',
+		path: ROUTER_KEYS.VERIFY_EMAIL,
+		element: <VerifyEmail />,
 	},
+];
+
+export const privateRoutes = [
+	{
+		title: 'Home Page',
+		path: ROUTER_KEYS.DASHBOARD,
+		element: <DashboardPage />,
+	},
+	{
+		title: 'Edit todo',
+		path: ROUTER_KEYS.EDIT_TODO,
+		element: <EditTodoPage />,
+	},
+	{
+		title: 'User Profile',
+		path: ROUTER_KEYS.USER_PROFILE,
+		element: <UserProfile />,
+	},
+];
+
+export const routes = [
+	...publicRoutes.map((route) => ({
+		...route,
+		element: (
+			<PublicRoute redirectTo={ROUTER_KEYS.DASHBOARD}>
+				{route.element}
+			</PublicRoute>
+		),
+	})),
+	...privateRoutes.map((route) => ({
+		...route,
+		element: (
+			<PrivateRoute redirectTo={ROUTER_KEYS.LOGIN}>
+				{route.element}
+			</PrivateRoute>
+		),
+	})),
 ];

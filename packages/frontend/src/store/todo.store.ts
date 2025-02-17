@@ -1,17 +1,26 @@
 import { AxiosError } from 'axios';
 import { create } from 'zustand';
-import { ICreateTodo, ITodo } from '~shared/interfaces/todo.interface';
+import { persist } from 'zustand/middleware';
+import {
+	ICreateTodo,
+	ITodo,
+	TodoSearchParams,
+} from '~shared/interfaces/todo.interface';
 import TodoService from '~shared/services/todo.service';
-import { immer } from 'zustand/middleware/immer';
 import { enqueueSnackbar } from 'notistack';
 import { ERROR_MESSAGES } from '~shared/constants/errorMessages';
+import { STORAGE_KEYS } from '~shared/keys';
 
 interface ITodoStore {
 	todo: ITodo;
 	todos: ITodo[];
+	todosCount: number;
 	loading: boolean;
 	error: AxiosError | null;
-	getAllTodo: () => Promise<void>;
+	getAllTodo: (
+		searchParams: TodoSearchParams,
+		add?: boolean,
+	) => Promise<void>;
 	getTodoById: (id: string) => Promise<void>;
 	createTodo: (body: ICreateTodo) => Promise<void>;
 	updateTodo: (id: string, body: Partial<ICreateTodo>) => Promise<void>;
@@ -21,24 +30,27 @@ interface ITodoStore {
 const todoService = new TodoService();
 
 export const useTodoStore = create<ITodoStore>()(
-	immer((set) => {
-		return {
+	persist(
+		(set) => ({
 			todos: [],
 			todo: null,
 			loading: false,
 			error: null,
+			todosCount: null,
 
-			getAllTodo: async (): Promise<void> => {
+			getAllTodo: async (searchParams, add = false): Promise<void> => {
 				set({ loading: true });
 
 				try {
-					const { data } = await todoService.getAllTodos();
+					const { data } =
+						await todoService.getAllTodos(searchParams);
 
-					set({
-						todos: data.data,
+					set((state) => ({
+						todos: add ? [...state.todos, ...data.data] : data.data,
+						todosCount: data.count,
 						loading: false,
 						error: null,
-					});
+					}));
 				} catch (error) {
 					enqueueSnackbar(ERROR_MESSAGES.NOT_FOUND, {
 						variant: 'error',
@@ -76,10 +88,14 @@ export const useTodoStore = create<ITodoStore>()(
 				set({ loading: true });
 
 				try {
-					const { data } = await todoService.createTodo(todo);
+					await todoService.createTodo(todo);
+					const { data: all } = await todoService.getAllTodos({
+						page: 1,
+						take: 5,
+					});
 
-					set((state) => ({
-						todos: [...state.todos, data.data],
+					set(() => ({
+						todos: all.data,
 						loading: false,
 						error: null,
 					}));
@@ -104,7 +120,11 @@ export const useTodoStore = create<ITodoStore>()(
 					const { data } = await todoService.updateTodo(id, body);
 
 					set((state) => ({
-						todo: state.todos.map((todo) =>
+						todo:
+							state.todo?.id === data.data.id
+								? data.data
+								: state.todo,
+						todos: state.todos.map((todo) =>
 							todo.id === data.data.id ? data.data : todo,
 						),
 						loading: false,
@@ -146,6 +166,10 @@ export const useTodoStore = create<ITodoStore>()(
 					});
 				}
 			},
-		};
-	}),
+		}),
+		{
+			name: STORAGE_KEYS.TODO_STORE,
+			partialize: (state) => ({ todo: state.todo }),
+		},
+	),
 );

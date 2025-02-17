@@ -36,4 +36,8 @@ export const colors = Object.freeze({
 	grape: '#591CB8',
 	iris: '#623ECC',
 	brilliantLavender: '#FABAF0',
+	errorRed: '#F44336',
+	primaryBtn: '#007bff',
+	darkPrimaryBtn: '#0056b3',
+	darkBlue: '#003f7f',
 });

@@ -1,12 +1,13 @@
 import axios, { AxiosResponse } from 'axios';
-import HttpServices from './http';
+import HttpServices from './http.service';
 import {
 	ChangePasswordData,
-	fogetPassword,
+	ForgetPassword,
 	IRegisterData,
 	IUser,
 	LoginData,
 	LoginResponse,
+	ResetPassword,
 } from '~shared/interfaces/user.interface';
 import { STORAGE_KEYS } from '~shared/keys';
 
@@ -41,16 +42,16 @@ class AuthService extends HttpServices {
 	async changePassword(
 		data: ChangePasswordData,
 	): Promise<AxiosResponse<IUser>> {
-		return this.putch({ url: 'change-password', data }, true);
+		return this.patch({ url: 'change-password', data }, true);
 	}
 
-	async fogetPAssword(email: fogetPassword): Promise<AxiosResponse> {
-		return this.post({ url: 'foget-password', data: email });
+	async forgetPassword(email: ForgetPassword): Promise<AxiosResponse> {
+		return this.post({ url: 'forget-password', data: email });
 	}
 
 	async resetPassword(
 		resetToken: string,
-		newPassword: string,
+		newPassword: ResetPassword,
 	): Promise<AxiosResponse<IUser>> {
 		return this.post({
 			url: `reset-password/${resetToken}`,
