@@ -1,7 +1,8 @@
 import forgotPasswordEmail from '@/email/forgotPassword.email';
-import verificationEmail from '@/email/verification.email';
+
 import * as postmark from 'postmark';
 import 'dotenv/config';
+import verificationEmail from '@/email/verivication.email';
 
 const { FRONTEND_URL, SENDER_EMAIL, POSTMARK_API_KEY } = process.env;
 const client = new postmark.ServerClient(POSTMARK_API_KEY!);

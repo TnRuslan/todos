@@ -8,8 +8,7 @@ import { checkboxWrapper, filterWrapper, inputBox } from './todoFilter.styles';
 import { useTodoFilters } from '~shared/hooks/useTodoFilters';
 
 const TodoFilter = (): React.ReactNode => {
-	const { title, isPublic, status, page, take, setFilters } =
-		useTodoFilters();
+	const { title, isPublic, status, page, take, setFilters } = useTodoFilters();
 	const { getAllTodo } = useTodoStore();
 	const { handleSubmit } = useForm<TodoSearchParams>();
 
