@@ -3,7 +3,7 @@ import { THEME } from '~shared/styles/theme';
 
 export const dashboardTitle = css`
 	margin-bottom: ${THEME.PADDING.XS};
-	color: ${THEME.COLORS.TEXT};
+	color: ${THEME.COLORS.primaryText};
 	text-transform: uppercase;
 	font-size: ${THEME.FONT_SIZES.LARGE};
 

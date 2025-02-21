@@ -6,6 +6,12 @@ export const FormWrapper = css`
 	max-width: 700px;
 	margin-right: auto;
 	margin-left: auto;
+
+	color: ${THEME.COLORS.primaryText};
+	background-color: ${THEME.COLORS.secondaryBgColor};
+	border-color: ${THEME.COLORS.borderColor};
+	border-width: 2;
+	border-style: solid;
 `;
 
 export const formStyles = css`

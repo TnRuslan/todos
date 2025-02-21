@@ -40,4 +40,19 @@ export const colors = Object.freeze({
 	primaryBtn: '#007bff',
 	darkPrimaryBtn: '#0056b3',
 	darkBlue: '#003f7f',
+
+	primaryBgColor: '#121212',
+	secondaryBgColor: '#252525',
+	surfaceColor: '#1E1E1E',
+
+	primaryText: '#EDEDED',
+	secondaryText: '#B3B3B3',
+	disabledText: '#757575',
+
+	primaryAccent: '#4CAF50',
+	secondaryAccent: '#FF9800',
+	error: '#F44336',
+
+	borderColor: '#333333',
+	shadowColor: 'rgba(0, 0, 0, 0.5)',
 });

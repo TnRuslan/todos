@@ -1,6 +1,5 @@
 import { css } from '@emotion/css';
 import { THEME } from '~shared/styles/theme';
-import { colors } from '~shared/styles';
 
 export const iconButtonStyles = css`
 	width: 100%;
@@ -12,8 +11,8 @@ export const iconButtonStyles = css`
 	margin-right: auto;
 	margin-bottom: ${THEME.PADDING.S};
 
-	background-color: ${colors.primaryBtn};
-	color: ${colors.white};
+	background-color: ${THEME.COLORS.primaryBtn};
+	color: ${THEME.COLORS.primaryText};
 	font-size: ${THEME.FONT_SIZES.MEDIUM};
 	font-weight: bold;
 	border: none;
@@ -24,16 +23,16 @@ export const iconButtonStyles = css`
 		transform 0.2s ease;
 
 	&:hover {
-		background-color: ${colors.darkPrimaryBtn};
+		background-color: ${THEME.COLORS.secondaryBtn};
 	}
 
 	&:active {
-		background-color: ${colors.darkBlue};
+		background-color: ${THEME.COLORS.activeBtn};
 		transform: scale(0.98);
 	}
 
 	&:disabled {
-		background-color: ${colors.disabledBtnColor};
+		background-color: ${THEME.COLORS.disabledBtn};
 		cursor: not-allowed;
 	}
 

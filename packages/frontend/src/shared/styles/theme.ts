@@ -27,6 +27,26 @@ export const THEME = {
 		BACKGROUND: '#ecf0f1',
 		TEXT: '#34495e',
 		BORDER: '#bdc3c7',
+
+		primaryBgColor: '#121212',
+		secondaryBgColor: '#252525',
+		surfaceColor: '#1E1E1E',
+
+		primaryText: '#EDEDED',
+		secondaryText: '#B3B3B3',
+		disabledText: '#757575',
+
+		primaryAccent: '#4CAF50',
+		secondaryAccent: '#FF9800',
+		error: '#F44336',
+
+		borderColor: '#444444',
+		shadowColor: 'rgba(0, 0, 0, 0.5)',
+
+		primaryBtn: '#4CAF50',
+		secondaryBtn: '#388E3C',
+		activeBtn: '#2E7D32',
+		disabledBtn: '#2A2A2A',
 	},
 	BORDER_RADIUS: {
 		XS: '4px',
