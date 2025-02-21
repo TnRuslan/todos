@@ -8,7 +8,8 @@ import {
 	loginSchema,
 	registerSchema,
 	resetPAsswordSchema,
-} from '@/utils/validation/user.schema';
+} from '@/utils/validation/user.shema';
+
 import { Router } from 'express';
 
 const router: Router = Router();

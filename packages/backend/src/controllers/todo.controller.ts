@@ -24,10 +24,7 @@ export class TodoController {
 			take: takeNumber,
 		};
 
-		const { todos, count } = await this.todoService.findAll(
-			user,
-			searchParams,
-		);
+		const { todos, count } = await this.todoService.findAll(user, searchParams);
 
 		res.status(StatusCodes.OK).json({
 			code: StatusCodes.OK,

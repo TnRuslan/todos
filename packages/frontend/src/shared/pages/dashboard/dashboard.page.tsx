@@ -20,8 +20,7 @@ import { useTodoFilters } from '~shared/hooks/useTodoFilters';
 const DashboardPage = (): React.ReactNode => {
 	const { todos, getAllTodo, todosCount } = useTodoStore();
 	const [isOpen, setIsOpen] = useState(false);
-	const { page, take, title, isPublic, status, setFilters } =
-		useTodoFilters();
+	const { page, take, title, isPublic, status, setFilters } = useTodoFilters();
 
 	const isAppendTodos = useMediaQuery({
 		maxWidth: THEME.BREAKPOINTS.DESKTOP,
@@ -70,13 +69,9 @@ const DashboardPage = (): React.ReactNode => {
 			<TodoFilter />
 			<IconButton
 				onClick={handleButtonClick}
-				icon={<PlusIcon size={30} />}
+				icon={<PlusIcon size={30} color={THEME.COLORS.primaryText} />}
 			/>
-			<Dialog
-				isOpen={isOpen}
-				onClose={handleClose}
-				className={dialogStyles}
-			>
+			<Dialog isOpen={isOpen} onClose={handleClose} className={dialogStyles}>
 				<CreateTodo onClose={handleClose} />
 			</Dialog>
 			<TodoList todos={todos} />

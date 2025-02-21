@@ -9,6 +9,13 @@ export const todoBox = css`
 	flex-direction: column;
 	gap: ${THEME.SPACING.SMALL};
 
+	color: ${THEME.COLORS.primaryText};
+	background-color: ${THEME.COLORS.secondaryBgColor};
+
+	&:hover {
+		box-shadow: 0 0 10px rgba(139, 181, 243, 0.4);
+	}
+
 	@media (min-width: ${THEME.BREAKPOINTS.TABLET}) {
 		width: 80%;
 	}

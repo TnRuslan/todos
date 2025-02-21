@@ -3,7 +3,7 @@ import { colors } from './colors';
 import { THEME } from './theme';
 
 export const errorMessageStyle = css`
-	color: ${colors.errorRed};
+	color: ${THEME.COLORS.error};
 `;
 
 export const container = css`
@@ -21,7 +21,7 @@ export const container = css`
 export const primaryBtn = css`
 	width: 100%;
 	padding: ${THEME.PADDING.XS} ${THEME.PADDING.S};
-	background-color: ${colors.primaryBtn};
+	background-color: ${THEME.COLORS.primaryBtn};
 	color: ${colors.white};
 	font-size: ${THEME.FONT_SIZES.MEDIUM};
 	font-weight: bold;
@@ -34,16 +34,16 @@ export const primaryBtn = css`
 		transform 0.2s ease;
 
 	&:hover {
-		background-color: ${colors.darkPrimaryBtn};
+		background-color: ${THEME.COLORS.secondaryBtn};
 	}
 
 	&:active {
-		background-color: ${colors.darkBlue};
+		background-color: ${THEME.COLORS.activeBtn};
 		transform: scale(0.98);
 	}
 
 	&:disabled {
-		background-color: ${colors.disabledBtnColor};
+		background-color: ${THEME.COLORS.disabledBtn};
 		cursor: not-allowed;
 	}
 
@@ -65,7 +65,7 @@ export const dialogStyles = css`
 
 export const linkStyles = css`
 	text-decoration: none;
-	color: ${THEME.COLORS.PRIMARY};
+	color: ${THEME.COLORS.primaryBtn};
 	font-weight: bold;
 	transition: color 0.3s ease;
 

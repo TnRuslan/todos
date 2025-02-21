@@ -7,11 +7,7 @@ const Router: React.FunctionComponent = () => {
 	return (
 		<Routes>
 			{routes.map((rout) => (
-				<Route
-					key={rout.path}
-					path={rout.path}
-					element={rout.element}
-				/>
+				<Route key={rout.path} path={rout.path} element={rout.element} />
 			))}
 			<Route path="*" element={<NotFoundPage />} />
 		</Routes>

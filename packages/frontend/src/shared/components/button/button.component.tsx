@@ -38,10 +38,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
 			disabled={isDisabled}
 			type={type}
 			onClick={handleClick}
-			className={classNames(
-				btnStyles(Boolean(disabled)),
-				extraButtonStyles,
-			)}
+			className={classNames(btnStyles(Boolean(disabled)), extraButtonStyles)}
 		>
 			{Boolean(loading) ? (
 				<Loader />
