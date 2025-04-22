@@ -67,12 +67,6 @@ module.exports = {
         '@typescript-eslint/comma-dangle': 'off', // Avoid conflict rule between Eslint and Prettier
         '@typescript-eslint/consistent-type-imports': 'error', // Ensure `import type` is used when it's necessary
         'import/prefer-default-export': 'off', // Named export is easier to refactor automatically
-        'tailwindcss/classnames-order': [
-          'warn',
-          {
-            officialSorting: true,
-          },
-        ], // Follow the same ordering as the official plugin `prettier-plugin-tailwindcss`
         'simple-import-sort/imports': [
           'error',
           {
@@ -92,7 +86,6 @@ module.exports = {
         ],
         'simple-import-sort/exports': 'error', // Export configuration for `eslint-plugin-simple-import-sort`
         '@typescript-eslint/no-unused-vars': 'off',
-        'tailwindcss/no-custom-classname': 'off',
         'unused-imports/no-unused-imports': 'error',
         'unused-imports/no-unused-vars': [
           'error',

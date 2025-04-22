@@ -1,17 +1,18 @@
-import { Button, Card } from '@blueprintjs/core';
+import React, { useState } from 'react';
+
+import { formWrapper } from './auth.styles';
+
+import { Card } from '@blueprintjs/core';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import Form from '~shared/components/form/form.component';
 import Input from '~shared/components/input/input.component';
-import { LoginData } from '~shared/interfaces/user.interface';
+import type { LoginData } from '~shared/interfaces/user.interface';
 import { ROUTER_KEYS } from '~shared/keys';
 import { loginSchema } from '~shared/schemas/auth.schema';
 import { linkStyles } from '~shared/styles/common-styles';
 import { useAuthStore } from '~store/auth.store';
-import { formWrapper } from './auth.styles';
-import Form from '~shared/components/form/form.component';
-
 
 const LoginPage = (): React.ReactNode => {
   const navigate = useNavigate();
@@ -35,7 +36,6 @@ const LoginPage = (): React.ReactNode => {
 
   return (
     <div>
-      <Button onClick={() => setNum(num + 1)}>Add</Button>
       <Form<LoginData>
         title="Login"
         onSubmit={onSubmit}
@@ -68,5 +68,3 @@ const LoginPage = (): React.ReactNode => {
 };
 
 export default LoginPage;
-
-
