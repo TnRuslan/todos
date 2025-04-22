@@ -6,7 +6,7 @@ module.exports = {
       './packages/backend/tsconfig.json',
       './packages/frontend/tsconfig.json',
     ],
-    tsconfigRootDir: path.join(__dirname, 'tsconfig.json'),
+    // tsconfigRootDir: path.join(__dirname, 'tsconfig.json'),
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
