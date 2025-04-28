@@ -47,11 +47,13 @@ const RegisterPage = (): React.ReactNode => {
           label="Email"
           {...register('email', { required: true })}
           errorMessage={errors?.email?.message}
+          autoComplete="email"
         />
         <Input
           label="Password"
           {...register('password', { required: true })}
           type="password"
+          autoComplete="current-password"
           errorMessage={errors?.password?.message}
         />
         <Link to={ROUTER_KEYS.LOGIN} className={linkStyles}>

@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   parser: '@typescript-eslint/parser',
   // project: path.join(__dirname, 'tsconfig.json'),
@@ -8,7 +6,7 @@ module.exports = {
       './packages/backend/tsconfig.json',
       './packages/frontend/tsconfig.json',
     ],
-    tsconfigRootDir: path.join(__dirname, 'tsconfig.json'),
+    // tsconfigRootDir: path.join(__dirname, 'tsconfig.json'),
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
@@ -69,29 +67,6 @@ module.exports = {
         '@typescript-eslint/comma-dangle': 'off', // Avoid conflict rule between Eslint and Prettier
         '@typescript-eslint/consistent-type-imports': 'error', // Ensure `import type` is used when it's necessary
         'import/prefer-default-export': 'off', // Named export is easier to refactor automatically
-        'tailwindcss/classnames-order': [
-          'warn',
-          {
-            officialSorting: true,
-          },
-        ], // Follow the same ordering as the official plugin `prettier-plugin-tailwindcss`
-        'simple-import-sort/imports': [
-          'error',
-          {
-            groups: [
-              // External libraries (React, React Native, etc.)
-              ['^react$', '^react-native', '^react-query$'],
-              // Internal aliases (components, hooks, etc.)
-              ['^@/services', '^@/common'],
-              ['^@/pages', '^@/components', '^@/ui'],
-              ['^@/types', '^@/constants'],
-              ['@/store'],
-              // Parent and sibling imports
-              ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
-              ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
-            ],
-          },
-        ],
         'simple-import-sort/exports': 'error', // Export configuration for `eslint-plugin-simple-import-sort`
         '@typescript-eslint/no-unused-vars': 'off',
         'tailwindcss/no-custom-classname': 'off',

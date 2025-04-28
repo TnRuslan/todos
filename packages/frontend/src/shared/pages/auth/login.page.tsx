@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-
-import { formWrapper } from './auth.styles';
+import React from 'react';
 
 import { Card } from '@blueprintjs/core';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,6 +11,7 @@ import { ROUTER_KEYS } from '~shared/keys';
 import { loginSchema } from '~shared/schemas/auth.schema';
 import { linkStyles } from '~shared/styles/common-styles';
 import { useAuthStore } from '~store/auth.store';
+import { formWrapper } from './auth.styles';
 
 const LoginPage = (): React.ReactNode => {
   const navigate = useNavigate();
@@ -32,8 +31,6 @@ const LoginPage = (): React.ReactNode => {
     navigate(ROUTER_KEYS.DASHBOARD);
   };
 
-  const [num, setNum] = useState<number>(0);
-
   return (
     <div>
       <Form<LoginData>
@@ -47,12 +44,14 @@ const LoginPage = (): React.ReactNode => {
           label="Email"
           {...register('email')}
           errorMessage={errors?.email?.message}
+          autoComplete="email"
         />
         <Input
           label="Password"
           {...register('password')}
           type="password"
           errorMessage={errors?.password?.message}
+          autoComplete="current-password"
         />
         <Card className={formWrapper}>
           <Link to={ROUTER_KEYS.REGISTER} className={linkStyles}>

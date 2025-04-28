@@ -3,7 +3,7 @@ import userRouter from './api/user.route';
 
 import { logger } from '@/middleware/loger.middleware';
 import { Post } from '@/model/post.model';
-import console, { info } from 'console';
+import { info } from 'console';
 import type { Application } from 'express';
 import fs from 'fs';
 import multer from 'multer';
@@ -17,8 +17,6 @@ if (!fs.existsSync(UPLOAD_DIR)) {
 
 const storage = multer.diskStorage({
   destination: (req, file, cd) => {
-    console.log('req', req.baseUrl);
-    console.log('file', file);
     cd(null, UPLOAD_DIR);
   },
   filename: (req, file, cd) => {
@@ -38,7 +36,7 @@ class AppRouter {
     });
 
     this.app.post('/api/upload', upload.single('file'), (req, res) => {
-      console.info('[INFO] Received file: ', req.file?.originalname);
+      info('[INFO] Received file: ', req.file?.originalname);
       res.json({ status: 'ok', filename: req.file?.originalname });
     });
 
@@ -53,7 +51,6 @@ class AppRouter {
         const fileList = files.map((file) => {
           const filePath = path.join(UPLOAD_DIR, file);
           const fileStats = fs.statSync(filePath);
-          console.log(fileStats);
 
           return {
             file,
@@ -67,7 +64,7 @@ class AppRouter {
 
     this.app.get('/api/files/:filename', (req, res) => {
       const filePath = path.join(UPLOAD_DIR, req.params.filename);
-      console.info('[INFO] Downloading file: ', req.params.filename);
+      info('[INFO] Downloading file: ', req.params.filename);
 
       if (fs.existsSync(filePath)) {
         res.download(filePath);
