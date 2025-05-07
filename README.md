@@ -1,4 +1,4 @@
-# CGS Test project
+# Todos project
 
 ## Project main stack
 
