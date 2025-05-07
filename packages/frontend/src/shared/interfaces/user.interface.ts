@@ -2,7 +2,7 @@ export interface IUser {
 	id: number;
 	username: string;
 	email: string;
-	veryfi: boolean;
+	verify: boolean;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -28,6 +28,10 @@ export interface LoginResponse {
 	token: string;
 }
 
-export interface fogetPassword {
+export interface ForgetPassword {
 	email: string;
+}
+
+export interface ResetPassword {
+	newPassword: string;
 }

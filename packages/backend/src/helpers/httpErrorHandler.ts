@@ -9,9 +9,7 @@ const HttpErrorHandler = (
 	next: NextFunction,
 ): void => {
 	const { status = StatusCodes.InternalServerError, message } = err;
-
 	res.status(status).json({ message });
-	next();
 };
 
 export default HttpErrorHandler;

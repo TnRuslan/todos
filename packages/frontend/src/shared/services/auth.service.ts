@@ -1,62 +1,64 @@
-import axios, { AxiosResponse } from 'axios';
-import HttpServices from './http';
-import {
-	ChangePasswordData,
-	fogetPassword,
-	IRegisterData,
-	IUser,
-	LoginData,
-	LoginResponse,
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
+import type {
+  ChangePasswordData,
+  ForgetPassword,
+  IRegisterData,
+  IUser,
+  LoginData,
+  LoginResponse,
+  ResetPassword,
 } from '~shared/interfaces/user.interface';
 import { STORAGE_KEYS } from '~shared/keys';
+import HttpServices from './http.service';
 
 class AuthService extends HttpServices {
-	constructor() {
-		super(process.env.SERVER_URL, axios, 'user');
-	}
+  constructor() {
+    super('user', process.env.SERVER_URL, axios);
+  }
 
-	async register(data: IRegisterData): Promise<AxiosResponse<IUser>> {
-		return this.post({ url: 'register', data }, false);
-	}
+  async register(data: IRegisterData): Promise<AxiosResponse<IUser>> {
+    return this.post({ url: 'register', data }, false);
+  }
 
-	async login(data: LoginData): Promise<LoginResponse> {
-		const response = await this.post<AxiosResponse<LoginResponse>>(
-			{ url: 'login', data },
-			false,
-		);
+  async login(data: LoginData): Promise<LoginResponse> {
+    const response = await this.post<AxiosResponse<LoginResponse>>(
+      { url: 'login', data },
+      false,
+    );
 
-		localStorage.setItem(STORAGE_KEYS.TOKEN, response.data.token);
+    localStorage.setItem(STORAGE_KEYS.TOKEN, response.data.token);
 
-		return response.data;
-	}
+    return response.data;
+  }
 
-	async verifyEmail(verifyToken: string): Promise<AxiosResponse<IUser>> {
-		return this.get({ url: `verify/${verifyToken}` });
-	}
+  async verifyEmail(verifyToken: string): Promise<AxiosResponse<IUser>> {
+    return this.get({ url: `verify/${verifyToken}` });
+  }
 
-	async getCurrentUser(): Promise<AxiosResponse<IUser>> {
-		return this.get({ url: 'current' }, true);
-	}
+  async getCurrentUser(): Promise<AxiosResponse<IUser>> {
+    return this.get({ url: 'current' }, true);
+  }
 
-	async changePassword(
-		data: ChangePasswordData,
-	): Promise<AxiosResponse<IUser>> {
-		return this.putch({ url: 'change-password', data }, true);
-	}
+  async changePassword(
+    data: ChangePasswordData,
+  ): Promise<AxiosResponse<IUser>> {
+    return this.patch({ url: 'change-password', data }, true);
+  }
 
-	async fogetPAssword(email: fogetPassword): Promise<AxiosResponse> {
-		return this.post({ url: 'foget-password', data: email });
-	}
+  async forgetPassword(email: ForgetPassword): Promise<AxiosResponse> {
+    return this.post({ url: 'forget-password', data: email });
+  }
 
-	async resetPassword(
-		resetToken: string,
-		newPassword: string,
-	): Promise<AxiosResponse<IUser>> {
-		return this.post({
-			url: `reset-password/${resetToken}`,
-			data: newPassword,
-		});
-	}
+  async resetPassword(
+    resetToken: string,
+    newPassword: ResetPassword,
+  ): Promise<AxiosResponse<IUser>> {
+    return this.post({
+      url: `reset-password/${resetToken}`,
+      data: newPassword,
+    });
+  }
 }
 
 export default AuthService;
